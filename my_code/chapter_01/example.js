@@ -2,6 +2,8 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 context.font = '38pt Arial';
+
+// CSS格式的颜色、渐变色或是图案
 context.fillStyle = 'cornflowerblue';
 context.strokeStyle = 'cornflowerblue';
 
