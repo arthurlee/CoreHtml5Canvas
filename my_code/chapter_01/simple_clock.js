@@ -4,7 +4,8 @@ var context = canvas.getContext('2d');
 const FONT_HEIGHT = 15;
 const MARGIN = 35;
 const HAND_TRUNCATION = canvas.width / 25;
-const HOUR_HAND_TRUNCATION = canvas.width / 10;
+const HOUR_HAND_TRUNCATION = canvas.width / 15;
+const MINUTE_HAND_TRUNCATION = canvas.width / 5;
 const NUMERAL_SPACING = 20;
 const RADIUS = canvas.width / 2 - MARGIN;	// 半径
 const HAND_RADIUS = RADIUS + NUMERAL_SPACING;
@@ -77,13 +78,27 @@ function drawScales() {
 	}
 }
 
-function drawHand(loc, isHour){
+function drawHand(loc, radius_truncation){
+	var angle = Math.PI * 2 * loc / 60 - Math.PI / 2;
+	var handRadius = RADIUS - radius_truncation;
 
+	context.beginPath();
+	context.moveTo(canvas.width / 2, canvas.height / 2);
+	context.lineTo(
+		canvas.width / 2 + Math.cos(angle) * handRadius,
+		canvas.height / 2 + Math.sin(angle) * handRadius
+	);
+	context.stroke();
 }
 
+// 时分秒针
 function drawHands() {
 	var date = new Date();
-	var hour = date.getHours();
+	var hour = date.getHours() % 12;
+	
+	drawHand(hour * 5 + (date.getMinutes() / 60) * 5, HAND_TRUNCATION + HOUR_HAND_TRUNCATION);
+	drawHand(date.getMinutes(), HAND_TRUNCATION + MINUTE_HAND_TRUNCATION);
+	drawHand(date.getSeconds(), HAND_TRUNCATION);
 }
 
 function drawClock() {
@@ -93,7 +108,7 @@ function drawClock() {
 	drawCenter();
 	drawNumerals();
 	drawScales();
-	//drawHands();
+	drawHands();
 }
 
 context.font = FONT_HEIGHT + 'px Arial';
