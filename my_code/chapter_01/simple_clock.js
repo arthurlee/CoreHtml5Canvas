@@ -37,12 +37,12 @@ function drawNumerals() {
 		angle = Math.PI / 6 * (numeral - 3);
 
 		// 角度
-		console.log(`${numeral}: angle = ${30 * (numeral - 3)} / ${angle}`);
-		// 补充360度
-		if (angle < 0) {
-			angle += Math.PI * 2;
-		}
-		console.log(`${numeral}: angle = ${30 * (numeral - 3)} / ${angle}`);
+		// console.log(`${numeral}: angle = ${30 * (numeral - 3)} / ${angle}`);
+		// // 补充360度
+		// if (angle < 0) {
+		// 	angle += Math.PI * 2;
+		// }
+		// console.log(`${numeral}: angle = ${30 * (numeral - 3)} / ${angle}`);
 		
 		numeralWidth = context.measureText(numeral).width;
 		context.fillText(numeral, 
@@ -113,4 +113,5 @@ function drawClock() {
 
 context.font = FONT_HEIGHT + 'px Arial';
 //loop = setInterval(drawClock, 1000);
-drawClock();
+//drawClock();
+setInterval(drawClock, 500);
