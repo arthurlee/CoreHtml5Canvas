@@ -9,6 +9,9 @@ const NUMERAL_SPACING = 20;
 const RADIUS = canvas.width / 2 - MARGIN;	// 半径
 const HAND_RADIUS = RADIUS + NUMERAL_SPACING;
 
+const LONG_SCALE_LEN = 10;
+const SHORT_SCALE_LEN = 5;
+
 // 钟的外圈
 function drawCircle() {
 	context.beginPath();
@@ -48,6 +51,31 @@ function drawNumerals() {
 	}
 }
 
+// scale 刻度
+
+function drawScale(angle, is_long) {
+	let scale_radius = is_long ? RADIUS - LONG_SCALE_LEN : RADIUS - SHORT_SCALE_LEN;	
+	var start_x = canvas.width / 2 + Math.cos(angle) * scale_radius;
+	var start_y = canvas.height / 2 + Math.sin(angle) * scale_radius;
+	var end_x = canvas.width / 2 + Math.cos(angle) * RADIUS;
+	var end_y = canvas.height / 2 + Math.sin(angle) * RADIUS;
+
+	context.beginPath();
+	context.moveTo(start_x, start_y);
+	context.lineTo(end_x, end_y);
+	context.stroke();
+}
+
+function drawScales() {
+	var angle = 0;
+	var is_long = false;	// 是否长刻度
+
+	for (var i = 0; i < 60; i++) {
+		angle = Math.PI / 30 * (i - 15);
+		is_long = (i % 5) == 0 ? true : false;
+		drawScale(angle, is_long);
+	}
+}
 
 function drawHand(loc, isHour){
 
@@ -64,6 +92,7 @@ function drawClock() {
 	drawCircle();
 	drawCenter();
 	drawNumerals();
+	drawScales();
 	//drawHands();
 }
 
