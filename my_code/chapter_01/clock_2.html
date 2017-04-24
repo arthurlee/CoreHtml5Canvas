@@ -1,0 +1,124 @@
+<!doctype html>  
+<html>  
+<head></head>  
+<body>  
+<canvas id="clock" width="500" height="500">  
+    您的浏览器不支持canvas标签，无法看到时钟  
+</canvas>  
+<script>  
+    var clock=document.getElementById('clock');  
+    var cxt=clock.getContext('2d');  
+  
+    function drawClock(){     
+        cxt.clearRect(0,0,500,500); //清除画布区域  
+        var now =new Date();  
+        var sec=now.getSeconds();  
+        var min=now.getMinutes();  
+        var hour=now.getHours();              
+          
+        hour=hour+min/60;   //小时必须获取浮点类型(小时+分数转化成的小时)  
+        //问题 19:23:30  
+        //将24小时进制转换为12小时  
+        hour=hour>12?hour-12:hour;  
+          
+          
+        cxt.lineWidth=10;  
+        cxt.strokeStyle="#A61C3E";  //表盘(蓝色)  
+        cxt.beginPath();  
+        cxt.arc(250,250,200,0,Math.PI*360,false);  
+        cxt.closePath();  
+        cxt.stroke();  
+  
+        //时刻度  
+        for(var i=0;i<12;i++){  
+            cxt.save();               
+            cxt.lineWidth=7;    //设置时针的粗细                 
+            cxt.strokeStyle="#005693";  //设置时针的颜色                 
+            cxt.translate(250,250);               
+            cxt.rotate(i*30*Math.PI/180);//角度*Math.PI/180=弧度  
+            cxt.beginPath();  
+            cxt.moveTo(0,-170);  
+            cxt.lineTo(0,-190);  
+            cxt.closePath();  
+            cxt.stroke();  
+            cxt.restore();  
+        }  
+              
+        //分刻度  
+        for(var i=0;i<60;i++){  
+            cxt.save();               
+            cxt.lineWidth=5;                  
+            cxt.strokeStyle="#04562E";                
+            cxt.translate(250,250);           
+            cxt.rotate(i*6*Math.PI/180);                  
+            cxt.beginPath();  
+            cxt.moveTo(0,-180);  
+            cxt.lineTo(0,-190);  
+            cxt.closePath();  
+            cxt.stroke();  
+            cxt.restore();  
+        }  
+          
+        //时针  
+            cxt.save();           
+            cxt.lineWidth=7;                  
+            cxt.strokeStyle="#04562E";                
+            cxt.translate(250,250);//设置异次元空间的0，0点，画布的圆心  
+            cxt.rotate(hour*30*Math.PI/180);  
+            cxt.beginPath();  
+            cxt.moveTo(0,-120);     //针长  
+            cxt.lineTo(0,10);  
+            cxt.closePath();  
+            cxt.stroke();  
+            cxt.restore();  
+          
+          
+        //分针  
+            cxt.save();  
+            cxt.lineWidth=5;  
+            cxt.strokeStyle="#000";  
+            cxt.translate(250,250);  
+            cxt.rotate(min*6*Math.PI/180);  
+            cxt.beginPath();  
+            cxt.moveTo(0,-150);  
+            cxt.lineTo(0,15);  
+            cxt.closePath();  
+            cxt.stroke();  
+            cxt.restore();  
+          
+              
+        //秒针              
+            cxt.save();  
+            cxt.strokeStyle="#611123";  
+            cxt.lineWidth=3;  
+            cxt.translate(250,250);               
+            cxt.rotate(sec*6*Math.PI/180);//设置旋转角度                
+            cxt.beginPath();    //画图  
+            cxt.moveTo(0,-170);  
+            cxt.lineTo(0,20);  
+            cxt.closePath();  
+            cxt.stroke();                 
+            cxt.beginPath();    //画出时针、分针、秒针的交叉点、  
+            cxt.arc(0,0,5,0,360,false);  
+            cxt.closePath();                  
+            cxt.fillStyle="gray";   //设置填充样式  
+            cxt.fill();               
+            cxt.stroke();  
+              
+            //设置秒针前段的小圆点  
+            cxt.beginPath();  
+            cxt.arc(0,-150,5,0,360,false);  
+            cxt.closePath();  
+            cxt.fillStyle="#FFF";  
+            cxt.fill();               
+            cxt.stroke();//设置笔触样式(秒针已设置)                  
+            cxt.restore();  
+        }  
+      
+      
+    drawClock();    //1000毫秒前要显示  
+    //使用setInterval(代码,毫秒时间)  让时钟动起来  
+    setInterval(drawClock,1000);  
+</script>  
+</body>  
+</html> 
