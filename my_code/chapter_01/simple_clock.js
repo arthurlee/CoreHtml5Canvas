@@ -6,7 +6,8 @@ const MARGIN = 35;
 const HAND_TRUNCATION = canvas.width / 25;
 const HOUR_HAND_TRUNCATION = canvas.width / 5;
 const MINUTE_HAND_TRUNCATION = canvas.width / 15;
-const NUMERAL_SPACING = 20;
+//const NUMERAL_SPACING = 20;
+const NUMERAL_SPACING = -20;
 const RADIUS = canvas.width / 2 - MARGIN;	// 半径
 const HAND_RADIUS = RADIUS + NUMERAL_SPACING;
 
