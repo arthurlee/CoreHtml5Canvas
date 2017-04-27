@@ -47,6 +47,7 @@ function drawingSprite(index) {
 	];
 
 	const cell = runnerCells[index];
+	context.clearRect(200, 100, cell.width, cell.height);
 	context.drawImage(spritesheet, cell.left, cell.top, cell.width, cell.height, 200, 100, cell.width, cell.height);
 }
 
@@ -84,10 +85,17 @@ canvas.onmousemove = function(e) {
 	updateReadout(loc.x, loc.y);
 };
 
+var index = -1;
+
+function drawSprite() {
+	index = ((index + 1) % 9);
+	drawingSprite(index);
+}
+
 spritesheet.src = 'running-sprite-sheet.png';
 spritesheet.onload = function(e) {
 		drawingSpritesheet();
-		drawingSprite(3);
+		setInterval(drawSprite, 100);
 }
 
 drawBackground();
