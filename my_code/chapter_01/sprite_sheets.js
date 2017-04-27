@@ -34,9 +34,20 @@ function drawingSpritesheet() {
 }
 
 function drawingSprite(index) {
-	const SPRITE_WIDTH = 50;
-	const SPRITE_HEIGHT = 64;
-	context.drawImage(spritesheet, index * SPRITE_WIDTH, 0, SPRITE_WIDTH, SPRITE_HEIGHT, 200, 100, SPRITE_WIDTH, SPRITE_HEIGHT);
+	const runnerCells = [
+		{ left: 0,   top: 0, width: 47, height: 64 },
+		{ left: 55,  top: 0, width: 44, height: 64 },
+		{ left: 107, top: 0, width: 39, height: 64 },
+		{ left: 150, top: 0, width: 46, height: 64 },
+		{ left: 208, top: 0, width: 49, height: 64 },
+		{ left: 265, top: 0, width: 46, height: 64 },
+		{ left: 320, top: 0, width: 42, height: 64 },
+		{ left: 380, top: 0, width: 35, height: 64 },
+		{ left: 425, top: 0, width: 35, height: 64 },
+	];
+
+	const cell = runnerCells[index];
+	context.drawImage(spritesheet, cell.left, cell.top, cell.width, cell.height, 200, 100, cell.width, cell.height);
 }
 
 function drawGuidelines(x, y) {
@@ -76,7 +87,7 @@ canvas.onmousemove = function(e) {
 spritesheet.src = 'running-sprite-sheet.png';
 spritesheet.onload = function(e) {
 		drawingSpritesheet();
-		drawingSprite(2);
+		drawingSprite(3);
 }
 
 drawBackground();
