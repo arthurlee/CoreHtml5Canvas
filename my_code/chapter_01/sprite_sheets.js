@@ -19,7 +19,7 @@ function drawBackground() {
 	context.strokeStype = 'lightgray';
 	context.lineWidth = 0.5;
 
-	while (i > VERTICAL_LINE_SPACING * 4) {
+	while (i > VERTICAL_LINE_SPACING * 5) {
 		context.beginPath();
 		context.moveTo(0, i);
 		context.lineTo(context.canvas.width, i);
@@ -31,6 +31,12 @@ function drawBackground() {
 
 function drawingSpritesheet() {
 	context.drawImage(spritesheet, 0, 0);
+}
+
+function drawingSprite(index) {
+	const SPRITE_WIDTH = 50;
+	const SPRITE_HEIGHT = 64;
+	context.drawImage(spritesheet, index * SPRITE_WIDTH, 0, SPRITE_WIDTH, SPRITE_HEIGHT, 200, 100, SPRITE_WIDTH, SPRITE_HEIGHT);
 }
 
 function drawGuidelines(x, y) {
@@ -70,6 +76,7 @@ canvas.onmousemove = function(e) {
 spritesheet.src = 'running-sprite-sheet.png';
 spritesheet.onload = function(e) {
 		drawingSpritesheet();
+		drawingSprite(2);
 }
 
 drawBackground();
